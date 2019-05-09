@@ -1,0 +1,85 @@
+<!-- {load static}  once in the pond do it this way -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src = "https://code.jquery.com/jquery-3.1.1.js"></script>
+{#    https://code.jquery.com/jquery-3.1.1.js#}
+{#    https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js#}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <!--<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"> -->
+
+    <!-- 	Bootstrap v2.3.2 -->
+{#<link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/bootstrap-2.3.2.min.css" />#}
+{#<!-- Plugin styles -->#}
+{#<link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/jquery.dynatable.css" />#}
+<!--  jQuery v3.4.0  -->
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js"></script>#}
+{#<!-- JS Pluging -->#}
+{#<script type='text/javascript' src='https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.dynatable.js'></script>#}
+
+{#        <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/reset.css" />#}
+{#        <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/bootstrap-2.3.2.min.css" />#}
+{#        <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/application.css" />#}
+{#        <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/project.css" />#}
+{#        <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/pygments.css" />#}
+{#        <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/share.css" />#}
+{#        <link href='//fonts.googleapis.com/css?family=Nunito:300' rel='stylesheet' type='text/css'>#}
+{#        <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">#}
+{#        <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/dynatable-docs.css" />#}
+{#        <script type='text/javascript' src='https://s3.amazonaws.com/dynatable-docs-assets/js/jquery-1.9.1.min.js'></script>#}
+{#        <script type='text/javascript' src='https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.scrollTo.js'></script>#}
+{#        <script type='text/javascript' src='https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.toc.min.js'></script>#}
+{#        <script type='text/javascript' src='https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.sharrre-1.2.0.min.js'></script>#}
+{#        <link rel="stylesheet" media="all" href="https://s3.amazonaws.com/dynatable-docs-assets/css/jquery.dynatable.css" />#}
+{#        <script type='text/javascript' src='https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.dynatable.js'></script>#}
+{##}
+{#        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>#}
+
+    <title>Bioinformatics Helpdesk</title>
+</head>
+<div>
+    <h1><a href ="/">Bioinformatics helpdesk</a></h1></div>
+<div><h2> Issues Raised </h2></div>
+<body>
+<div class = "container">
+	<table id="helpdesk-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Issue</th>
+                <th>Author</th>
+                <th>Opened</th>
+                <th>Status</th>
+                <th>Assignee</th>
+            </tr>
+        </thead>
+        {% for i in issues %}
+            <tr>
+                <td>{{ i.id_issue }}</td>
+                <td>{{ i.id_type.type }}</td>
+                <td><a href="">{{ i.issue }}</a></td>
+                <td>{{ i.author }}</td>
+                <td>{{ i.open_date.date }}</td>
+                <td>{{ i.id_status.status }}</td>
+                <td>TBC</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<!-- initiate Dynatable -->
+<!-- <script>$("#helpdesk_table").dynatable();</script> -->
+</body>
+<script>
+    $(document).ready(function () {
+        $('#helpdesk-table').DataTable({responsive: true})});></script>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'helpdesk/base.html' %}
+{% block content %}
+    <div class="container">
+    <h3>Issue {{ issue.id_issue }} : {{ issue.issue }} </h3>
+        <p>Author: {{ issue.author|linebreaksbr }}</p>
+        <p>{{ issue.description|linebreaksbr }}</p>
+    </div>
+
+{% endblock %}
+</html>

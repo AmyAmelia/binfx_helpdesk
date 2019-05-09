@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends 'helpdesk/base.html' %}
+{% block content %}
+<div class = "container">
+    <button type="button" class="button">Raise Issue</button></div>
+<div class = "container">
+    <h2> Issues Raised </h2>
+	<table id="helpdesk_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+        <thead >
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Issue</th>
+                <th>Author</th>
+                <th>Opened</th>
+                <th>Status</th>
+                <th>Assignee</th>
+            </tr>
+        </thead>
+        {% for i in issues %}
+            <tr>
+                <td>{{ i.id_issue }}</td>
+                <td>{{ i.id_type.type }}</td>
+                <td><a href="{% url 'issue_description' pk=i.id_issue%}">{{ i.issue }}</a></td>
+                <td>{{ i.author }}</td>
+                <td>{{ i.open_date.date }}</td>
+                <td>{{ i.id_status.status }}</td>
+                <td>TBC</td> <!-- TODO: need to update -->
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<!-- CDN Links to activate datatables with sorting functionallity -->
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css">
+    <script src= "https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src= "https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#helpdesk_table').DataTable({responsive:true})});
+</script>
+{% endblock %}
+
+</body>
+
+</html>
