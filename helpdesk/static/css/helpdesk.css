@@ -1,8 +1,8 @@
 h1 a {
-    color: #fafafa;
+    color: #292b2c;
 }
 .page-header {
-    background-color: #3f90c8;
+    background-color: #cfd2d3;
     margin-top: 0;
     padding: 2px 20px 20px 60px;
 }
@@ -29,3 +29,8 @@ body {
 }
 
 td a { color: #333333}
+
+th {background-color: #006a72;
+    color: white;
+    font-size: 16px
+}

@@ -5,12 +5,12 @@ from django.conf import settings
 # Create your models here.
 
 class Issue(models.Model):
-    id_issue = models.AutoField(primary_key=True)
+    # id_issue = models.AutoField(primary_key=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    id_type = models.ForeignKey('RequestType', on_delete=models.CASCADE, db_column='id_type', null=True)
+    type = models.ForeignKey('RequestType', on_delete=models.CASCADE,  null=True)
     issue = models.CharField(max_length=100)
     description = models.TextField()
-    id_status = models.ForeignKey('Status', on_delete=models.CASCADE, db_column='id_status', null=True)
+    status = models.ForeignKey('Status', on_delete=models.CASCADE,  null=True)
     open_date = models.DateTimeField(default=timezone.now)
     closed_date = models.DateTimeField(blank=True, null=True)
     # TODO: add
@@ -27,7 +27,7 @@ class Issue(models.Model):
         return self.issue
 
 class Status(models.Model):
-    id_status = models.AutoField(primary_key=True)
+    # id_status = models.AutoField(primary_key=True)
     status = models.CharField(max_length=20, null=True, unique=True)
     class Meta:
         db_table = 'status'
@@ -37,7 +37,7 @@ class Status(models.Model):
         return u'{0}'.format(self.status)
 
 class RequestType(models.Model):
-    id_type = models.AutoField(primary_key=True)
+    # id_type = models.AutoField(primary_key=True)
     type = models.CharField(max_length=20, null=True, unique=True)
     class Meta:
         db_table = 'RequestType'

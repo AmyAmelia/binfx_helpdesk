@@ -2,11 +2,39 @@
 <html lang="en">
 {% extends 'helpdesk/base.html' %}
 {% block content %}
-    <div class="container">
-    <h3>Issue {{ issue.id_issue }} : {{ issue.issue }} </h3>
-        <p>Author: {{ issue.author|linebreaksbr }}</p>
-        <p>{{ issue.description|linebreaksbr }}</p>
+    <div class="container-fluid"><div class ="row">
+        <h3>Issue {{ issue.id_issue }} - {{ issue.issue }} </h3></div></div>
+    <div class="container-fluid">
+        <table id="issue_desc" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+        <thead >
+            <tr>
+                <th>Author</th>
+                <th>Date Opened</th>
+                <th>Assignee</th>
+                <th>Status</th>
+            </tr>
+        <tr>
+                <td>{{ issue.author }}</td>
+                <td>{{ issue.open_date.date }}</td>
+                <td>TBC</td> <!-- TODO: need to update -->
+                <td>{{ issue.status }}</td>
+
+            </tr>
+        </thead>
+        </table>
     </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            <h3 class="panel-title">
+            Issue Description</h3>
+            </div>
+        <div class="panel-body">
+            {{ issue.description }}</p></div>
+        </div></div>
 
 {% endblock %}
 </html>
+
+
+<!-- TODO look at Gel2MDT template - Proband and the views for the comment functionalty
