@@ -2,25 +2,37 @@ from django.shortcuts import render, get_object_or_404
 
 from django.utils import timezone
 from .models import *
+from .forms import *
+from django.shortcuts import redirect
 
 
 # Create your views here.
 
-def raise_issue(request):
-    return render(request, 'helpdesk/raise_issue.html')
-
 def view_issues(request):
-    ''' direct to view all submitted issues'''
+    ''' Opening dashboard view listing all submitted issues'''
     # posts = Issue.objects.filter(open_date__lte=timezone.now()).order_by('open_date')
     posts = Issue.objects.all()
     return render(request, 'helpdesk/view_issue.html',{'issues':posts})
 
 def issue_description(request, pk):
+    ''' Detailed description of individual issue'''
     post = get_object_or_404(Issue, pk=pk)
     return render(request, 'helpdesk/issue_description.html', {'issue': post})
 
+def issue_new(request):
+    if request.method == "POST":
+        issue_form = RaiseIssueForm(request.POST)
+        if issue_form.is_valid():
+            Issue = issue_form.save(commit=False)
+            Issue.creator = request.user
+            Issue.open = timezone.now()
+            Issue.save()
+            return redirect('issue_description', pk=Issue.pk)
+    else:
+        issue_form = RaiseIssueForm()
+    return render(request, 'helpdesk/issue_new.html',{'issue_form': issue_form})
 
-
+# TODO: Add in IssueComments Form View
 '''def variant(request):
     # collect all data
     patient = Patient.objects.all()

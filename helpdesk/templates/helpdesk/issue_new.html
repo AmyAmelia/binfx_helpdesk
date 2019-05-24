@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'helpdesk/base.html' %}
+{% load bootstrap3 %}
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Raise Issue</title>
+</head>
+<body>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading ">
+                        <h2 class="panel-title">New Issue</h2></div>
+                    <div class="panel-body">
+                        <form method="POST" class="post-form">
+                            {% csrf_token %}
+                            {% bootstrap_form issue_form %}
+                            <button type="submit" class="save btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+</body>
+</html>

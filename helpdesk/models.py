@@ -3,18 +3,20 @@ from django.utils import timezone
 from django.conf import settings
 
 # Create your models here.
-
+# TODO: add groups to users
 class Issue(models.Model):
-    # id_issue = models.AutoField(primary_key=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    type = models.ForeignKey('RequestType', on_delete=models.CASCADE,  null=True)
-    issue = models.CharField(max_length=100)
-    description = models.TextField()
-    status = models.ForeignKey('Status', on_delete=models.CASCADE,  null=True)
+    '''Main table of the helpdesk, stores all issues and descriptions
+    raised to the bioinformatics help desk'''
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='creator')
+    type = models.ForeignKey('RequestType', on_delete=models.PROTECT,  null=True)
+    issue = models.CharField(max_length=100, null=True)
+    is_urgent = models.BooleanField()
+    description = models.TextField(blank=True,null=True)
+    status = models.ForeignKey('Status', on_delete=models.PROTECT,  null=True)
     open_date = models.DateTimeField(default=timezone.now)
     closed_date = models.DateTimeField(blank=True, null=True)
-    # TODO: add
-    # TODO add stake-holders - many to many link required
+    assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='assignee', blank=True, null=True)
+    # TODO add stake-holders - many to many link required?
     # TODO: look as Sisu- for how to restrict views per user group
     class Meta:
         db_table = 'issue'
@@ -27,7 +29,7 @@ class Issue(models.Model):
         return self.issue
 
 class Status(models.Model):
-    # id_status = models.AutoField(primary_key=True)
+    ''' Look up table for issue status '''
     status = models.CharField(max_length=20, null=True, unique=True)
     class Meta:
         db_table = 'status'
@@ -37,7 +39,7 @@ class Status(models.Model):
         return u'{0}'.format(self.status)
 
 class RequestType(models.Model):
-    # id_type = models.AutoField(primary_key=True)
+    ''' Look up table for the types of issue flag'''
     type = models.CharField(max_length=20, null=True, unique=True)
     class Meta:
         db_table = 'RequestType'
