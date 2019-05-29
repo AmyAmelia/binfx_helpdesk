@@ -4,15 +4,22 @@ from django.utils import timezone
 from .models import *
 from .forms import *
 from django.shortcuts import redirect
+from django.db.models import Q
 
 
 # Create your views here.
 
 def view_issues(request):
-    ''' Opening dashboard view listing all submitted issues'''
-    # posts = Issue.objects.filter(open_date__lte=timezone.now()).order_by('open_date')
-    posts = Issue.objects.all()
-    return render(request, 'helpdesk/view_issue.html',{'issues':posts})
+    ''' Opening dashboard view listing all Open issues'''
+    # closed issues are defined by 'completed' or not 'required status'
+    closed = Issue.objects.filter(Q(status_id__status='Completed')|Q(status_id__status='Not required'))
+    # All other status define issue to be open
+    open = Issue.objects.filter(~Q(status_id__status='Completed')|Q(status_id__status='Not required'))
+    return render(request, 'helpdesk/view_issue.html',{'closed':closed, 'open':open})
+
+    # # Back up working code - uncomment to show all issues
+    # posts = Issue.objects.all().order_by('-is_urgent')
+    # return render(request, 'helpdesk/view_issue.html',{'issues':post})
 
 def issue_description(request, pk):
     ''' Detailed description of individual issue'''
@@ -25,6 +32,7 @@ def issue_new(request):
         if issue_form.is_valid():
             Issue = issue_form.save(commit=False)
             Issue.creator = request.user
+            Issue.status = Status.objects.get(status='Pending')
             Issue.open = timezone.now()
             Issue.save()
             return redirect('issue_description', pk=Issue.pk)

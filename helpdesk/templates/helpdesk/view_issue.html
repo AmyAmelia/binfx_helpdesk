@@ -25,16 +25,16 @@
                     </tr>
                 </thead>
             <tbody>
-            {% for i in issues %}
+            {% for issue in open %}
                 <tr>
-                    <td>{{ i.id }}</td>
-                    <td>{{ i.type.type }}</td>
-                    <td><a href="{% url 'issue_description' pk=i.pk%}">{{ i.issue }}</a></td>
-                    <td>{{ i.creator }}</td>
-                    <td>{{ i.open_date.date }}</td>
-                    <td>{{ i.status }}</td>
-                    <td>{{ i.is_urgent }}</td>
-                    <td>{{ i.assignee }}</td>
+                    <td>{{ issue.id }}</td>
+                    <td>{{ issue.type.type }}</td>
+                    <td><a href="{% url 'issue_description' pk=issue.pk%}">{{ issue.issue }}</a></td>
+                    <td>{{ issue.creator }}</td>
+                    <td>{{ issue.open_date.date }}</td>
+                    <td>{{ issue.status }}</td>
+                    <td>{{ issue.is_urgent }}</td>
+                    <td>{{ issue.assignee }}</td>
                 </tr>
             {% endfor %}</tbody>
         </table>
@@ -45,9 +45,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css">
     <script src= "https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
     <script src= "https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap.min.js"></script>
+
+<!-- run javascript to display datatable, order by Is_urgent column [8] -->
 <script>
     $(document).ready(function () {
-        $('#helpdesk_table').DataTable({responsive:true})});
+        $('#helpdesk_table').DataTable({responsive:true, order:[[6, "desc"]]})});
 </script>
 {% endblock %}
 
