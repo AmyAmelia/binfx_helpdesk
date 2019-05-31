@@ -17,11 +17,9 @@ class Issue(models.Model):
     closed_date = models.DateTimeField(blank=True, null=True)
     assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='assignee', blank=True, null=True)
     # TODO: look as Sisu- for how to restrict views per user group
-    # TODO: add function to filter open and closed issues ( closed = not required and completed). This will be displayed in view_issue.html
     # TODO add stakeholders/ multiple poeple to an issue- many to many link required
     class Meta:
         db_table = 'issue'
-
     def raise_issue(self):
         self.open_date = timezone.now()
         self.save()
@@ -37,9 +35,6 @@ class Issue(models.Model):
     #         else:
     #             open.append(row)
     #     return open, closed
-
-
-
 
     def __str__(self):
         return self.issue
@@ -63,3 +58,15 @@ class RequestType(models.Model):
         return self.type
     def __unicode__(self):
         return u'{0}'.format(self.type)
+
+class IssueComment (models.Model):
+    '''Model to record comments added to an issue. Permit multiple comments per issue '''
+    issue_record = models.ForeignKey(Issue, on_delete=models.PROTECT,  null=True)
+    comment = models.TextField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    time = models.DateTimeField()
+
+    class Meta:
+        managed = True
+        ordering = ['-time']
+        db_table = 'IssueComment'

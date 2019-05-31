@@ -8,4 +8,5 @@ class IssuesAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Status)
 admin.site.register(models.RequestType)
+admin.site.register(models.IssueComment)
 

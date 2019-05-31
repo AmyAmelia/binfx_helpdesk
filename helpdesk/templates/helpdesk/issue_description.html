@@ -2,58 +2,124 @@
 <html lang="en">
 {% extends 'helpdesk/base.html' %}
 {% block content %}
-    <!-- Issue title -->
-    <div class="container-fluid">
-        <div class ="row">
-            <div class = "col-md-1"></div>
-            <div class = "col-md-11">
-                <h3>Issue {{ issue.id_issue }} - {{ issue.issue }} </h3>
-            </div>
-        </div>
-    </div>
+{% load bootstrap3 %}
 
-    <!-- Issue meta data/ basic information displayed in a table structure -->
-    <div class="container-fluid">
+<!-- Issue title -->
+<div class="container-fluid">
+    <div class ="row">
         <div class = "col-md-1"></div>
-        <div class = "col-md-10">
-            <table id="issue_desc" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-            <thead >
-                <tr class="bg-success">
-                    <th>Creator</th>
-                    <th>Date Opened</th>
-                    <th>Assignee</th>
-                    <th>Status</th>
-                </tr>
-            <tr>
-                    <td>{{ issue.creator }}</td>
-                    <td>{{ issue.open_date.date }}</td>
-                    <td>{{ issue.assignee }}</td>
-                    <td>{{ issue.status }}</td>
-
-                </tr>
-            </thead>
-            </table>
+        <div class = "col-md-11">
+            <h3>Issue {{ issue.id_issue }} - {{ issue.issue }} </h3>
         </div>
-    <div class = "col-md-1"></div>
     </div>
-    <!-- Larger/more detailed description of the issue raised. -->
-    <div class="container-fluid">
+</div>
+
+<!-- Issue meta data/ basic information displayed in a table structure -->
+<div class="container-fluid">
+    <div class = "col-md-1"></div>
+    <div class = "col-md-10">
+        <table id="issue_desc" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+        <thead >
+            <tr class="bg-success">
+                <th>Creator</th>
+                <th>Date Opened</th>
+                <th>Assignee</th>
+                <th>Status</th>
+                <th>Date closed</th>
+            </tr>
+        <tr>
+                <td>{{ issue.creator }}</td>
+                <td>{{ issue.open_date.date }}</td>
+                <td>{{ issue.assignee }}</td>
+                <td>{{ issue.status }}</td>
+                <td>{{ issue.closed_date.date }}</td>
+
+            </tr>
+        </thead>
+        </table>
+    </div>
+<div class = "col-md-1"></div>
+</div>
+
+<!-- Larger/more detailed description of the issue raised. -->
+<div class="container-fluid">
     <div class = "col-md-1"></div>
         <div class = "col-md-10">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                <h3 class="panel-title">
-                Issue Description</h3>
+                    <h3 class="panel-title">Issue Description</h3>
                 </div>
                 <div class="panel-body">
-                    {{ issue.description }}</p>
+                    <p>{{ issue.description }}</p>
             </div>
         </div>
     </div>
-        <div class = "col-md-1"></div>
-    </div>
+    <div class = "col-md-1"></div>
+</div>
 
-    <!-- TODo add comment functionality - see Gel2MDT template-->
+<!-- Add comment/discussions to issues ToDo add comment functionality - see Gel2MDT template-->
+<div class="container-fluid">
+    <div class = "col-md-1"></div>
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% bootstrap_label "Add Comments " %}
+                <a href=# data-toggle="modal" data-target="#addCommentModal"><i class="fas fa-plus"></i></a>
+            </div>
+
+            <div class="col-md-12" style="height: 250px; overflow-y:scroll;">
+                <div class="media"  id="comment-table">
+                    {% for comment in issue.issuecomment_set.all %}
+                        <div class="panel ">
+                            <div class="media-body">
+                                <h5 class="media-heading">{{comment.user}}
+                                <span style="float: right; margin: 0px 5px 0px 5px">
+                                    <small><i>Posted on {{comment.time}}</i></small>
+                                </span></h5>
+                                    <p>{{comment.comment}}</p>
+                                    <p>{% if comment.user == request.user %}
+                                        <span style="float: left; margin: 0px 0px 0px 0px">
+                                        <a class="js-edit-comment" data-url="/edit_comment/{{ comment.id }}" style="font-size: 13px;">Edit</a>
+                                        <a href="/delete_comment/{{comment.id }}" style="font-size: 13px;" onclick="return confirm('Are you sure?')">Delete</a>
+                                        </span>
+                                    </p>{%endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Comment box modal -->
+<div id="addCommentModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="fas fa-window-close"></i>
+{#                <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                    <span aria-hidden="true">&times;</span>#}
+                </button>
+                <h4 class="modal-title">Add New Comment</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/issue/{{ issue.id }}/" method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form add_comment_form %}
+                    {% buttons %}
+                    <button type="submit" name="add_comment" class="btn btn-primary">
+                        Add New Comment
+                    </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 </html>
 
