@@ -4,41 +4,94 @@
 {% block content %}
 {% load bootstrap3 %}
 
-<!-- Issue title -->
-<div class="container-fluid">
-    <div class ="row">
-        <div class = "col-md-1"></div>
-        <div class = "col-md-11">
-            <h3>Issue {{ issue.id_issue }} - {{ issue.issue }} </h3>
-        </div>
-    </div>
-</div>
-
-<!-- Issue meta data/ basic information displayed in a table structure -->
+<!-- Issue meta data/ basic information displayed. Permit update of status and assign issue by bioinformaticians-->
 <div class="container-fluid">
     <div class = "col-md-1"></div>
-    <div class = "col-md-10">
-        <table id="issue_desc" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-        <thead >
-            <tr class="bg-success">
-                <th>Creator</th>
-                <th>Date Opened</th>
-                <th>Assignee</th>
-                <th>Status</th>
-                <th>Date closed</th>
-            </tr>
-        <tr>
-                <td>{{ issue.creator }}</td>
-                <td>{{ issue.open_date.date }}</td>
-                <td>{{ issue.assignee }}</td>
-                <td>{{ issue.status }}</td>
-                <td>{{ issue.closed_date.date }}</td>
-
-            </tr>
-        </thead>
-        </table>
+    <div class="col-md-10">
+        {% if issue.closed_date %}
+            <div class="panel panel-default">
+        {% else %}
+            <div class="panel panel-primary">
+        {% endif %}
+            <div class="panel-heading" > <h4>{% bootstrap_label "Issue"%} {{ issue.id }}: {{ issue.issue }} </h4></div>
+        {% if user.groups.all.0.name == 'bioinformatician' %}
+            <div class="panel-body">
+                <div class ="col-md-6">
+                    <div class="col-md-4">
+                        {% bootstrap_label "Raised by" %}
+                        <div class="block">
+                            {{ issue.creator.first_name }} {{ issue.creator.last_name }}
+                        </div><br>
+                        {% bootstrap_label "Request Type" %}
+                        <div class="block">
+                            {{ issue.type }}
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        {% bootstrap_label "Date created" %}
+                        <div class="block">
+                            {{ issue.open_date.date }}
+                        </div><br>
+                        {% bootstrap_label "Date closed" %}
+                        <div class="block">
+                            {% if issue.closed_date is null %}
+                                N/A
+                            {% else %}
+                                {{ issue.closed_date.date }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <form method="POST" action="/update_issue/{{ issue.id }}">
+                        {% csrf_token %}
+                        <div class="col-md-8">
+                            {% bootstrap_field issue_status_form.status label='Status' value='id' %}
+                            {% bootstrap_field issue_status_form.assignee label='Assigned'  %}
+                        </div>
+                        <div class="col-md-3"> <br>
+                            <button type="submit" name="status_update_btn" class="save btn btn-primary  ">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% else %} <!-- For all other users restrict issue info view to read only -->
+            <div class="panel-body">
+                <div class ="col-md-2">
+                    {% bootstrap_label "Raised by" %}
+                    <div class="block">{{ issue.creator.first_name }} {{ issue.creator.last_name }}</div>
+                </div>
+                <div class ="col-md-2">
+                    {% bootstrap_label "Request Type" %}
+                    <div class="block">{{ issue.type }}</div>
+                </div>
+                <div class ="col-md-2">
+                    {% bootstrap_label "Date created" %}
+                    <div class="block">{{ issue.open_date.date }}</div>
+                </div>
+                <div class ="col-md-2">
+                    {% bootstrap_label "Date closed" %}
+                    <div class="block">
+                        {% if issue.closed_date is null %}
+                            N/A
+                        {% else %}
+                            {{ issue.closed_date.date }}
+                        {% endif %}
+                        </div>
+                </div>
+                <div class ="col-md-2">
+                    {% bootstrap_label "Status" %}
+                    <div class="block">{{ issue.status }}</div>
+                </div>
+                <div class ="col-md-2">
+                    {% bootstrap_label "Assigned" %}
+                    <div class="block">{{ issue.assignee }}</div>
+                </div>
+            </div>
+        {% endif %}
+        </div>
     </div>
-<div class = "col-md-1"></div>
 </div>
 
 <!-- Larger/more detailed description of the issue raised. -->
@@ -57,7 +110,7 @@
     <div class = "col-md-1"></div>
 </div>
 
-<!-- Add comment/discussions to issues ToDo add comment functionality - see Gel2MDT template-->
+<!-- Add comment/discussions to issues -->
 <div class="container-fluid">
     <div class = "col-md-1"></div>
     <div class="col-md-10">
@@ -67,7 +120,7 @@
                 <a href=# data-toggle="modal" data-target="#addCommentModal"><i class="fas fa-plus"></i></a>
             </div>
 
-            <div class="col-md-12" style="height: 250px; overflow-y:scroll;">
+            <div class="col-md-12" style="height: 400px; overflow-y:scroll;">
                 <div class="media"  id="comment-table">
                     {% for comment in issue.issuecomment_set.all %}
                         <div class="panel ">
@@ -79,7 +132,7 @@
                                     <p>{{comment.comment}}</p>
                                     <p>{% if comment.user == request.user %}
                                         <span style="float: left; margin: 0px 0px 0px 0px">
-                                        <a class="js-edit-comment" data-url="/edit_comment/{{ comment.id }}" style="font-size: 13px;">Edit</a>
+                                        <a class="js-edit-comment" data-url="/edit_comment/{{ comment.id }}" style="font-size: 13px;">Edit</a> |
                                         <a href="/delete_comment/{{comment.id }}" style="font-size: 13px;" onclick="return confirm('Are you sure?')">Delete</a>
                                         </span>
                                     </p>{%endif %}
@@ -119,6 +172,55 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-commenthistory">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<!-- Java script to run the edit comment functionality -->
+<script>
+    var runloadForm = function () {
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-commenthistory .modal-content").html("");
+        $("#modal-commenthistory").modal("show");
+      },
+      success: function (data) {
+        $("#modal-commenthistory .modal-content").html(data.html_form);
+      }
+    });
+  };
+   var runsaveForm = function () {
+    var form = $(this);
+    $.ajax({
+      url: form.attr("action"),
+      data: form.serialize(),
+      type: form.attr("method"),
+      dataType: 'json',
+      success: function (data) {
+        if (data.form_is_valid) {
+          window.location.reload();
+          $("#modal-commenthistory").modal("hide");
+
+        }
+        else {
+          $("#modal-commenthistory .modal-content").html(data.html_form);
+        }
+      }
+    });
+    return false;
+  };
+   $("#comment-table").on("click", ".js-edit-comment", runloadForm);
+  $("#modal-run").on("submit", ".js-save-comment", runsaveForm);
+</script>
+
 
 {% endblock %}
 </html>
