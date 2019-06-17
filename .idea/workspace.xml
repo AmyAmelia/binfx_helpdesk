@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb61428c-2f25-4117-a98c-23e70bac1d51" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/helpdesk/templates/helpdesk/modals/comment_modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpdesk/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/helpdesk/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html" beforeDir="false" afterPath="$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpdesk/templates/helpdesk/view_issue.html" beforeDir="false" afterPath="$PROJECT_DIR$/helpdesk/templates/helpdesk/view_issue.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpdesk/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/helpdesk/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpdesk/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/helpdesk/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,8 +29,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+                <state relative-caret-position="47">
+                  <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
                 </state>
               </provider>
             </entry>
@@ -96,7 +90,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/helpdesk/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="452">
+                <state relative-caret-position="143">
                   <caret line="78" column="95" selection-start-line="78" selection-start-column="95" selection-end-line="78" selection-end-column="95" />
                   <folding>
                     <element signature="e#0#44#0" expanded="true" />
@@ -185,10 +179,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="-240" />
-    <option name="y" value="-1080" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -325,7 +317,7 @@
       <workItem from="1560249672934" duration="2478000" />
       <workItem from="1560255075479" duration="20427000" />
       <workItem from="1560350357773" duration="720000" />
-      <workItem from="1560768236806" duration="11027000" />
+      <workItem from="1560768236806" duration="11533000" />
     </task>
     <task id="LOCAL-00001" summary="Back up before updating css with local bootstrap">
       <created>1558522057293</created>
@@ -345,7 +337,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177507000" />
+    <option name="totallyTimeSpent" value="178013000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -357,15 +349,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-240" y="-1080" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.111821085" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.1502146" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32970297" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34851485" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.42409638" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -655,7 +647,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/helpdesk/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
+        <state relative-caret-position="143">
           <caret line="78" column="95" selection-start-line="78" selection-start-column="95" selection-end-line="78" selection-end-column="95" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
@@ -665,8 +657,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+        <state relative-caret-position="47">
+          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
         </state>
       </provider>
     </entry>
