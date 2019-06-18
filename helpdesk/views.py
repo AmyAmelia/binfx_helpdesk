@@ -8,27 +8,31 @@ from .forms import *
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect, JsonResponse #, HttpResponse
 from django.template.loader import render_to_string
-
+from django.db.models import Q
 
 @login_required
 def view_issues(request):
     ''' Opening dashboard view summarising all issues. For non-bioinformaticians,
-    view is restricted to issues raised by logged in user '''
+    view is restricted to issues raised by logged in user or issue user has been associated with'''
     if request.user.groups.first().name == 'bioinformatician':
         closed_issues = Issue.objects.filter(closed_date__isnull=False)
         # If no closed date, issue is assumed to be open
         open_issues = Issue.objects.filter(closed_date__isnull=True)
     else:
         # closed issues are defined by the closed date not being null'
-        closed_issues = Issue.objects.filter(closed_date__isnull=False, creator=request.user)
+        # closed_issues = Issue.objects.filter(closed_date__isnull=False, creator=request.user)
+        closed_issues = Issue.objects.filter(Q(closed_date__isnull=False) & \
+                             (Q(creator__username=request.user) | Q(collaborators__username=request.user)))
         # If no closed date, issue is assumed to be open
-        open_issues = Issue.objects.filter(closed_date__isnull=True, creator=request.user)
+        open_issues = Issue.objects.filter(Q(closed_date__isnull=True) & \
+                                           (Q(creator__username=request.user) | Q(collaborators__username=request.user)))
+        # open_issues = Issue.objects.filter(closed_date__isnull=True, creator=request.user)
     return render(request, 'helpdesk/view_issue.html',{'closed_issues':closed_issues, 'open_issues':open_issues})
 
 @login_required
 def issue_description(request, record_id):
     #TODO: Allow issue creators to update issue discription?
-    #ToDo add in cc'ed user
+    #TODO: Allow users to edit/ add collaborators
     ''' View displaying the detailed description of an individual issue
     with functionality to comment on issues, assign issues and update status.'''
     issue = get_object_or_404(Issue, pk=record_id)
@@ -53,12 +57,9 @@ def issue_new(request):
         issue_form = RaiseIssueForm(request.POST)
         # on submission assign test status to 'Pending" and capture who and when raised the issue.
         if issue_form.is_valid():
-            Issue = issue_form.save(commit=False)
-            Issue.creator = request.user
-            Issue.status = Status.objects.get(status='Pending')
-            Issue.open = timezone.now()
-            Issue.save()
-            return redirect('issue_description', record_id=Issue.pk)
+            id = issue_form.save(request)
+            print(id)
+            return redirect('issue_description', record_id=id)
     return render(request, 'helpdesk/issue_new.html',{'issue_form': issue_form})
 
 @login_required

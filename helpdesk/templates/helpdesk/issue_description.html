@@ -42,7 +42,9 @@
                         </div><br>
                         {% bootstrap_label "Collaborators" %}
                         <div class="block">
-                            {{ issue.creator.first_name }} {{ issue.creator.last_name }}
+                           {% for person in issue.collaborators.all %}
+                            {{ person.first_name }} {{ person.last_name }}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="col-md-1"></div>
@@ -143,8 +145,6 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <i class="fas fa-window-close"></i>
-{#                <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-{#                    <span aria-hidden="true">&times;</span>#}
                 </button>
                 <h4 class="modal-title">Add New Comment</h4>
             </div>

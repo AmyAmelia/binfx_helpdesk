@@ -15,25 +15,13 @@ class Issue(models.Model):
     open_date = models.DateTimeField(default=timezone.now)
     closed_date = models.DateTimeField(blank=True, null=True)
     assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='assignee', blank=True, null=True)
+    collaborators = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='colab_issues', blank=True, null=True)
 
-    # TODO add stakeholders/ multiple poeple to an issue- many to many link required
     class Meta:
         db_table = 'issue'
     def raise_issue(self):
         self.open_date = timezone.now()
         self.save()
-
-    # def open_issues(self):
-    #     '''Return list of open and closed issues seperately '''
-    #     open = []
-    #     closed =[]
-    #     for row in self:
-    #         # identify closed issues
-    #         if row.status == 'Complete' or row.status == 'Not required':
-    #             closed.append(row)
-    #         else:
-    #             open.append(row)
-    #     return open, closed
 
     def __str__(self):
         return self.issue
