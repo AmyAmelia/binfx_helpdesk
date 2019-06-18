@@ -14,25 +14,18 @@
             <div class="panel panel-primary">
         {% endif %}
             <div class="panel-heading" > <h4>{% bootstrap_label "Issue"%} {{ issue.id }}: {{ issue.issue }} </h4></div>
-        {% if user.groups.all.0.name == 'bioinformatician' %}
             <div class="panel-body">
-                <div class ="col-md-6">
-                    <div class="col-md-4">
-                        {% bootstrap_label "Raised by" %}
-                        <div class="block">
-                            {{ issue.creator.first_name }} {{ issue.creator.last_name }}
-                        </div><br>
-                        {% bootstrap_label "Request Type" %}
-                        <div class="block">
-                            {{ issue.type }}
-                        </div>
-                    </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-4">
+                <div class ="col-md-12">
+                    <div class="col-md-3">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                         {% bootstrap_label "Request Type" %}
+                        <div class="block">{{ issue.type }}</div>
+                            <br>
                         {% bootstrap_label "Date created" %}
                         <div class="block">
-                            {{ issue.open_date.date }}
-                        </div><br>
+                            {{ issue.open_date.date }}</div>
+                            <br>
                         {% bootstrap_label "Date closed" %}
                         <div class="block">
                             {% if issue.closed_date is null %}
@@ -41,55 +34,52 @@
                                 {{ issue.closed_date.date }}
                             {% endif %}
                         </div>
+                        </div></div>
+                    <div class="col-md-3">
+                        {% bootstrap_label "Raised by" %}
+                        <div class="block">
+                            {{ issue.creator.first_name }} {{ issue.creator.last_name }}
+                        </div><br>
+                        {% bootstrap_label "Collaborators" %}
+                        <div class="block">
+                            {{ issue.creator.first_name }} {{ issue.creator.last_name }}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <form method="POST" action="/update_issue/{{ issue.id }}">
-                        {% csrf_token %}
-                        <div class="col-md-8">
-                            {% bootstrap_field issue_status_form.status label='Status' value='id' %}
-                            {% bootstrap_field issue_status_form.assignee label='Assigned'  %}
-                        </div>
-                        <div class="col-md-3"> <br>
+                    <div class="col-md-1"></div>
+{#                {% if user.groups.all.0.name == 'bioinformatician' %}#}
+                    <div class="col-md-4">
+                        <form method="POST" action="/update_issue/{{ issue.id }}">
+                            {% csrf_token %}
+                                {% bootstrap_field issue_status_form.status label='Status' value='id' %}
+                                {% bootstrap_field issue_status_form.assignee label='Assigned'  %}
+                            {% if user.groups.all.0.name == 'bioinformatician' %} <!-- Only display update button to bioinformatics group -->
                             <button type="submit" name="status_update_btn" class="save btn btn-primary  ">Update</button>
-                        </div>
-                    </form>
+                            {% endif %}
+                        </form>
+                    </div>
+{#                {% else %} <!-- For all other users restrict issue info view to read only -->#}
+{#                    <div class="col-md-4">#}
+{#                        <form method="POST" action="/update_issue/{{ issue.id }}">#}
+{#                            {% csrf_token %}#}
+{#                            <div class="col-md-8">#}
+{#                                {% bootstrap_field issue_status_form.status label='Status' value='id' %}#}
+{#                                {% bootstrap_field issue_status_form.assignee label='Assigned'  %}#}
+{#                            </div>#}
+    {#                        <div class="col-md-3"> <br>#}
+{#                            <button type="submit" name="status_update_btn" class="save btn btn-primary  ">Update</button>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                    <div class ="col-md-4">#}
+{#                        {% bootstrap_label "Status" %}#}
+{#                        <div class="block">{{ issue.status }}</div>#}
+{#                        <br>#}
+{#                        {% bootstrap_label "Assigned" %}#}
+{#                        <div class="block">{{ issue.assignee }}</div>#}
+{#                    </div>#}
+{#                {% endif %}#}
                 </div>
             </div>
-        {% else %} <!-- For all other users restrict issue info view to read only -->
-            <div class="panel-body">
-                <div class ="col-md-2">
-                    {% bootstrap_label "Raised by" %}
-                    <div class="block">{{ issue.creator.first_name }} {{ issue.creator.last_name }}</div>
-                </div>
-                <div class ="col-md-2">
-                    {% bootstrap_label "Request Type" %}
-                    <div class="block">{{ issue.type }}</div>
-                </div>
-                <div class ="col-md-2">
-                    {% bootstrap_label "Date created" %}
-                    <div class="block">{{ issue.open_date.date }}</div>
-                </div>
-                <div class ="col-md-2">
-                    {% bootstrap_label "Date closed" %}
-                    <div class="block">
-                        {% if issue.closed_date is null %}
-                            N/A
-                        {% else %}
-                            {{ issue.closed_date.date }}
-                        {% endif %}
-                        </div>
-                </div>
-                <div class ="col-md-2">
-                    {% bootstrap_label "Status" %}
-                    <div class="block">{{ issue.status }}</div>
-                </div>
-                <div class ="col-md-2">
-                    {% bootstrap_label "Assigned" %}
-                    <div class="block">{{ issue.assignee }}</div>
-                </div>
             </div>
-        {% endif %}
         </div>
     </div>
 </div>

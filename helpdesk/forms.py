@@ -23,6 +23,12 @@ class IssueUpdateForm(forms.ModelForm):
         fields = ['status', 'assignee']
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
         super(IssueUpdateForm, self).__init__(*args, **kwargs)
-        # restrict assignee selection to members of the bioinformatics team
+        # restrict assignee options to members of the bioinformatics team only
         self.fields['assignee'].queryset = User.objects.filter(groups__name='bioinformatician')
+        # restrict updating issue status/ assignee to bioinformaticians only.
+        print(self.user)
+        if not self.user.groups.first().name == 'bioinformatician':
+            for field in self.fields:
+                self.fields[field].disabled = True

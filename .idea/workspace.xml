@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb61428c-2f25-4117-a98c-23e70bac1d51" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/helpdesk/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/helpdesk/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html" beforeDir="false" afterPath="$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpdesk/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/helpdesk/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,7 +16,7 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.573741">
+    <splitter split-orientation="horizontal" split-proportion="0.5371703">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -29,8 +31,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="47">
-                  <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+                <state relative-caret-position="383">
+                  <caret line="56" column="39" lean-forward="true" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
                 </state>
               </provider>
             </entry>
@@ -87,11 +89,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/helpdesk/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="143">
-                  <caret line="78" column="95" selection-start-line="78" selection-start-column="95" selection-end-line="78" selection-end-column="95" />
+                <state relative-caret-position="-48">
+                  <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
                   <folding>
                     <element signature="e#0#44#0" expanded="true" />
                   </folding>
@@ -99,11 +101,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/helpdesk/forms.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="501">
-                  <caret line="24" column="40" lean-forward="true" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+                <state relative-caret-position="726">
+                  <caret line="33" column="47" lean-forward="true" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
                   <folding>
                     <element signature="e#0#29#0" expanded="true" />
                   </folding>
@@ -148,6 +150,7 @@
       <find>add_comm</find>
       <find>bootstrap</find>
       <find>sub</find>
+      <find>issue_st</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -172,15 +175,17 @@
         <option value="$PROJECT_DIR$/helpdesk/templates/helpdesk/modals/comment_modal.html" />
         <option value="$PROJECT_DIR$/helpdesk/templates/helpdesk/view_issue.html" />
         <option value="$PROJECT_DIR$/helpdesk/urls.py" />
-        <option value="$PROJECT_DIR$/helpdesk/forms.py" />
         <option value="$PROJECT_DIR$/helpdesk/views.py" />
         <option value="$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html" />
+        <option value="$PROJECT_DIR$/helpdesk/forms.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="x" value="-240" />
+    <option name="y" value="-1080" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -317,7 +322,7 @@
       <workItem from="1560249672934" duration="2478000" />
       <workItem from="1560255075479" duration="20427000" />
       <workItem from="1560350357773" duration="720000" />
-      <workItem from="1560768236806" duration="11533000" />
+      <workItem from="1560768236806" duration="16756000" />
     </task>
     <task id="LOCAL-00001" summary="Back up before updating css with local bootstrap">
       <created>1558522057293</created>
@@ -337,7 +342,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178013000" />
+    <option name="totallyTimeSpent" value="183236000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -349,15 +354,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="-240" y="-1080" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.1502146" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.111821085" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32970297" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.42409638" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.044554457" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -635,30 +640,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/helpdesk/forms.py">
+    <entry file="file://$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="24" column="40" lean-forward="true" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="383">
+          <caret line="56" column="39" lean-forward="true" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/helpdesk/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="78" column="95" selection-start-line="78" selection-start-column="95" selection-end-line="78" selection-end-column="95" />
+        <state relative-caret-position="-48">
+          <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/helpdesk/templates/helpdesk/issue_description.html">
+    <entry file="file://$PROJECT_DIR$/helpdesk/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+        <state relative-caret-position="726">
+          <caret line="33" column="47" lean-forward="true" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

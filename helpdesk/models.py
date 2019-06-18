@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.conf import settings
 
 # Create your models here.
-# TODO: add groups to users
 class Issue(models.Model):
     '''Main table of the helpdesk, stores all issues and descriptions
     raised to the bioinformatics help desk'''
@@ -16,7 +15,7 @@ class Issue(models.Model):
     open_date = models.DateTimeField(default=timezone.now)
     closed_date = models.DateTimeField(blank=True, null=True)
     assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='assignee', blank=True, null=True)
-    # TODO: look as Sisu- for how to restrict views per user group
+
     # TODO add stakeholders/ multiple poeple to an issue- many to many link required
     class Meta:
         db_table = 'issue'

@@ -27,14 +27,13 @@ def view_issues(request):
 
 @login_required
 def issue_description(request, record_id):
-    #TODO: Add logic to assign close date when status = compeleted or not required
-    #TODO: add in accessability logic.
+    #TODO: Allow issue creators to update issue discription?
     #ToDo add in cc'ed user
     ''' View displaying the detailed description of an individual issue
     with functionality to comment on issues, assign issues and update status.'''
     issue = get_object_or_404(Issue, pk=record_id)
     add_comment_form = AddCommentForm(user=request.user)
-    issue_status_form = IssueUpdateForm(instance=issue)
+    issue_status_form = IssueUpdateForm(instance=issue, user=request.user)
     if request.method == "POST":
         if 'add_comment' in request.POST:
             add_comment_form = AddCommentForm(request.POST)
@@ -67,7 +66,7 @@ def update_issue(request, issue_id):
     '''Update an issue's status or assign issue to bioinformatician'''
     issue_update = get_object_or_404(Issue, pk=issue_id)
     if request.method == "POST":
-        issue_update_form = IssueUpdateForm(request.POST, instance = issue_update)
+        issue_update_form = IssueUpdateForm(request.POST, instance = issue_update, user=request.user)
         if issue_update_form.is_valid():
             issue_update = issue_update_form.save(commit=False)
             # Set an issue status to 'Assigned' when issue is first assigned.
