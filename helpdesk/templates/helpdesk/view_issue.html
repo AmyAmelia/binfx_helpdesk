@@ -37,7 +37,7 @@
                     {% for issue in open_issues %}
                         <tr>
                             <td>{{ issue.id }}</td>
-                            <td>{{ issue.type.type }}</td>
+                            <td>{{ issue.iss_type.iss_type }}</td>
                             <td><a href="{% url 'issue_description' record_id=issue.id%}">{{ issue.issue }}</a></td>
                             <td>{{ issue.creator }}</td>
                             <td>{{ issue.open_date.date }}</td>

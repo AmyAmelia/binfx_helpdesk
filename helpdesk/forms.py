@@ -14,7 +14,7 @@ class RaiseIssueForm(forms.ModelForm):
         '''Manual saving of new issues, to permit the m2m collaborators field. '''
         new_issue = self.instance
         new_issue.issue = self.cleaned_data['issue']
-        new_issue.type = self.cleaned_data['type']
+        new_issue.iss_type = self.cleaned_data['type']
         new_issue.is_urgent = self.cleaned_data['is_urgent']
         new_issue.description = self.cleaned_data['description']
 
@@ -31,18 +31,6 @@ class RaiseIssueForm(forms.ModelForm):
         print (new_issue.id)
         return new_issue.id
 
-                #
-                #
-                # def save(self, request):
-                #     sample_report = self.instance
-                #     sample_report.save()
-                #     sample_panels = SamplePanel.objects.filter(sample_report=sample_report)
-                #     for sample_panel in sample_panels:
-                #         if sample_panel.panel_version not in self.cleaned_data['panels']:
-                #             sample_panel.delete()
-                #     for panel in self.cleaned_data['panels']:
-                #         SamplePanel.objects.get_or_create(sample_report=sample_report,
-                #                                           panel_version=panel,
                 #                                           defaults={'added_by': request.user})
 
 class AddCommentForm(forms.ModelForm):
